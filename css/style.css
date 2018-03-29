@@ -1,0 +1,35 @@
+a{
+    text-decoration: none;
+}
+kbd{
+    border: 1px solid red;
+    width: 4em;
+    height: 4em;
+    display: inline-block;
+    text-transform: uppercase;
+    position: relative;
+    background-color: rgb(209, 89, 89,0.5);
+}
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 100px 0 0 0 ;
+}
+kbd > button{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    display: none;
+    border: 1px solid red;
+}
+kbd:hover > button{
+    display: inline-block;
+}
+#main > div:nth-child(2){
+    margin-left: 2em;
+}
+#main > div:nth-child(3){
+    margin-left: 4em;
+}
+
