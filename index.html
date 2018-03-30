@@ -7,12 +7,16 @@
     </head>
     <body>
         <header></header>
-        <main>
+        <main>           
+            <!-- <kbd class="key">A</kbd> 
+            用它来调试键盘-->
             <div id="main" class="wrapper">     
             </div>
+            
         </main>
         <footer></footer>
         <script>
+            // 1.初始变量
             var keys ={
                 0: ['q','w','e','r','t','y','u','i','o','p'],//这是数组的简写 正常的应该是
                                     //0: {0：'q',1：'w',2：'e',3：'r',4：'t',5：'y',6：'u',7：'i',8：'o',9：'p'，length：10}
@@ -27,26 +31,26 @@
                 r: 'renren.com',
                 t: 'taobao.com',
                 y: 'youku.com',
-                u: 'uc.com',
+                u: '',
                 i: 'iqiyi.com',
                 o: 'opera.com',
                 p: 'pptv.com',
                 a: 'acfun.com',
                 s: 'sohu.com',
                 d: 'dota2.com',
-                f: 'fenghuang.com',
+                f: '',
                 g: 'github.com',
                 h: 'hupu.com',
                 j: 'jingdong.com',
-                k: 'kugou.com',
+                k: '',
                 l: 'lol.com',               
                 z: 'zhihu.com',
                 x: 'sina.com',
                 c: 'cctv.com',
-                v: 'visualgo.net/bn/sorting',
+                v: '',
                 b: 'baidu.com',
                 n: 'nba.com',
-                m: 'meituan.com',
+                m: 'MacDonald.com',
             }
             // 遍历keys生成 kbd标签
             var hashInLocalStorage = JSON.parse(localStorage.getItem('zzz')||'null')
@@ -54,36 +58,86 @@
             if(hashInLocalStorage){
               hash = hashInLocalStorage
             }
-            index = 0
-            while (index < keys['length']){//0 1 2
-                div1 = document.createElement('div')
+            
+
+            function createSpan(textContent){
+                var span = tag('span')
+                span.textContent = textContent
+                span.className = 'text'
+            }
+
+            function tag(tagName,attributes){
+                return document.createElement(tagName)
+            }
+            // 生成函数，来简化编写
+
+
+
+            //2.生成键盘
+            var index = 0
+            for (var index = 0;index < keys['length'];index = index + 1){//0 1 2
+                var div1 = tag('div')
                 main.appendChild(div1)
+                div1.className = 'row'
                 // 通过以上两条在html的main里创建div
-                row = keys[index]
+                var row = keys[index]
                 console.log(row)
-                index2 = 0
-                while (index2 < row['length']){// 每行的长度
-                    kbd = document.createElement('kbd')
-                    kbd.textContent = row[index2]
-                    buttonkbd = document.createElement('button')
-                    kbd.appendChild(buttonkbd)
-                    buttonkbd.onclick = function(xzkjcnxlkcjlk){
-                        key = xzkjcnxlkcjlk['target']['id']
-                        newWebsite = prompt('给我一个网址')
-                        hash[key] = newWebsite//这是依次hash变更
+                for (var index2 = 0;index2 < row['length']; index2 = index2 + 1){// 每行的长度
+                    var kbd = tag('kbd')
+                    kbd.className = 'key'
+
+                    var span = tag('span')
+                    span.textContent = row[index2]
+                    span.className = 'text'
+                    
+
+                    var button = tag('button')
+                    button.textContent = '编辑'
+                    button.id = row[index2]                    
+
+
+                    var img = tag('img')
+                    
+                    if(hash[row[index2]]){
+                        img.src = 'http://'+hash[row[index2]]+'/favicon.ico'
+                    }else{
+                        img.src = '//i.loli.net/2017/11/10/5a05afbc5e183.png'
+                    }
+                    img.onerror = function(fail){
+                        console.log(fail)
+                        fail.target.src = '//i.loli.net/2017/11/10/5a05afbc5e183.png'
+                    }
+
+
+                    
+                    button.onclick = function(click){
+                        var button2 = click['target']
+                        console.log(click)
+                        var img2 = button2.previousSibling
+                        key = button2['id']
+                        var newWebsite = prompt('给我一个网址')
+                        hash[key] = newWebsite
+                        //这是依次hash变更
+                        img2.src = 'http://'+newWebsite+'/favicon.ico'
+                        img2.onerror = function(fail){
+                        console.log(fail)
+                        fail.target.src = '//i.loli.net/2017/11/10/5a05afbc5e183.png'
+                        }
+
+
                         localStorage.setItem('zzz',JSON.stringify(hash))
                         //每次hash变更都存到zzz里面
-                        console.log(hash)
-                    }
-                    buttonkbd.textContent = '编辑'
-                    buttonkbd.id = row[index2]
+                    } 
+
                     div1.appendChild(kbd)
-                    index2 = index2 + 1
+                    kbd.appendChild(button)
+                    kbd.appendChild(img)
+                    kbd.appendChild(span)
                 }
-                index = index + 1
             }
-            document.onkeypress = function(xzkjcnxlkcjlk){
-                key = xzkjcnxlkcjlk['key']//容纳了你所有的细节
+            // 3.键盘监听
+            document.onkeypress = function(click){
+                key = click['key']//容纳了你所有的细节
                 website = hash[key]
                 console.log(website)
                 // location.href = 'http://'+website

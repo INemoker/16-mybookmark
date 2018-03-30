@@ -1,3 +1,8 @@
+*{margin:0; padding:0;}
+body{
+    background: grey url(./wall.jpg) no-repeat center center;
+    background-size:cover;
+}
 a{
     text-decoration: none;
 }
@@ -7,21 +12,23 @@ kbd{
     height: 4em;
     display: inline-block;
     text-transform: uppercase;
-    position: relative;
-    background-color: rgb(209, 89, 89,0.5);
+
 }
 main{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 100px 0 0 0 ;
+    height: 100vh;
+     /* 这是与视口高度一样的意思viewport height */
 }
+
 kbd > button{
     position: absolute;
     bottom: 0;
     right: 0;
     display: none;
-    border: 1px solid red;
+    border-radius: 3px;
+    font-size: 12px;
 }
 kbd:hover > button{
     display: inline-block;
@@ -32,4 +39,40 @@ kbd:hover > button{
 #main > div:nth-child(3){
     margin-left: 4em;
 }
-
+.wrapper{
+    background: rgba(255, 255, 255,0.4);
+    border-radius: 10px;
+    box-shadow: 3px 3px 7px -2px rgba(0,0,0,0.75);
+}
+.key{
+    width: 50px;
+    height: 40px;
+    background: linear-gradient(to bottom,#292929 0%,#111111 100%);
+    border: 1px solid #373737;
+    color: #C5C5C5;
+    border-radius: 7px;
+    box-shadow: 0 0 0px 1px #1A1B1C, 0 0 0px 2px #1F2020,
+                0 1px 0px 2px #080808;
+    display: inline-flex;
+    /* justify-content: center;
+    align-items: center; */
+    margin: 0 8px;
+    font-size: 16px;
+    font-family: Helvetica;
+    position: relative;
+}
+.row{
+    margin: 20px;
+}
+.key > img{
+    position: relative;
+    width: 16px;
+    height: 16px;
+    top: 24px;
+    left: 3px;
+}
+.key .text{
+    position: absolute;
+    left: 5px;
+    top: 5px;
+}
